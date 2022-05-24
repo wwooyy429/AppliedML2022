@@ -1,0 +1,100 @@
+1. Classification_HauLamFong_lightgbm.csv:
+Algorithm: lightgbm
+Key HP values: params={'boosting_type': 'gbdt',
+            'max_depth': 19,
+            'min_child_samples': 139,
+            'learning_rate': 0.3851342929999186,
+            'feature_fraction': 0.8,
+            'num_leaves': 1020,
+            'bagging_freq': 1,
+            'bagging_fraction': 0.8,
+            'reg_alpha': 3.3000000000000003,
+            'reg_lambda': 1}
+num_boost_round=1000, early_stopping_rounds=100
+HP optimisation: optuna with params
+Feature_ranking: lightgbm.booster_.feature_importance
+Loss function and value on validation set: log_loss = 0.1478, accuracy = 0.9415
+Own evaluation: Well performing model with fast progress
+
+2. Classification_HauLamFong_xgboost.csv:
+Algorithm: XGBoost
+Key HP values: {'n_estimators': 80, 'reg_alpha': 4, 'reg_lambda': 2, 'min_child_weight': 7, 'gamma': 0, 'subsample': 0.86,
+     'colsample_bytree': 0.76, 'max_depth': 87, 'objective': 'binary:logistic', 'booster': 'dart', 'learning_rate': 0.08192147965761523}
+HP optimisation: optuna
+Feature_ranking: shap with XGBoost
+Loss function and value on validation set: log_loss = 0.1454, accuracy = 0.9425
+Own evaluation: Well performing model with fast progress
+
+3. Classification_HauLamFong_neuralnetwork.csv:
+Key HP values: Dense1=128, Dense2=16, Dense3=32, epochs = 10, batch_size=512
+HP optimisation: tensorboard for each Dense:[16, 32, 64, 128]
+Feature_ranking: Sklearn SelectKBest
+Loss function and value on validation set: log_loss = 0.2213, accuracy = 0.9227
+Own evaluation: Great log_loss and accuracy but it need to be spent long_time to do hp tuning.
+
+4: Regression_HauLamFong_lightgbm.csv:
+Algorithm: lightgbm
+Key HP values: params={
+        'boosting_type': 'gbdt',
+        'max_depth': 44,
+        'min_child_samples': 198,
+        'learning_rate': 0.24942129794855278,
+        'feature_fraction': 0.6000000000000001,
+        'num_leaves': 1160,
+        'bagging_freq': 1,
+        'bagging_fraction': 0.9,
+        'reg_alpha': 15.5,
+        'reg_lambda': 75
+    }
+num_boost_round=1000, early_stopping_rounds=100
+HP optimisation: optuna with params
+Feature_ranking: lightgbm.booster_.feature_importance
+Loss function and value on validation set: mae = 0.1433, r2_score(Coefficient of determination) = 0.9236
+Own evaluation: Well performing model with fast progress
+
+5. Regression_HauLamFong_xgboost.csv:
+Algorithm: XGBoost
+Key HP values: {'n_estimators': 100, 'reg_alpha': 3, 'reg_lambda': 0, 'min_child_weight': 29, 'gamma': 3, 'subsample': 0.99, 
+    'colsample_bytree': 0.82, 'max_depth': 38, 'objective': 'reg:squarederror', 'booster': 'gbtree', 'learning_rate': 0.09140602270486103}
+HP optimisation: optuna
+Feature_ranking: shap with XGBoost
+Loss function and value on validation set:  mae = 0.1403, r2_score(Coefficient of determination) = 0.9218
+Own evaluation: Well performing model with slower progress
+
+6: Regression__HauLamFong_neuralnetwork.csv:
+Key HP values: Dense1=64, Dense2=32, Dense3=128, epochs = 10, batch_size=512
+HP optimisation: tensorboard for each Dense:[16, 32, 64, 128]
+Feature_ranking: Sklearn SelectKBest
+Loss function and value on validation set: mae =  0.1334, r2_score(Coefficient of determination) = 0.9093, mse = 0.0936
+Own evaluation: Great log_loss and accuracy but it need to be spent long_time to do hp tuning.
+
+7: Clustering_HauLamFong_kmean_shap.csv:
+  Algorithm: Sklearn KMeans
+  Key HPs: n_clusters
+  feature_ranking: Use Top 8 shap feature from classification question
+  HP optimisation: Tested various values of n_clusters.
+  Pre-processing: Scaled the input features using StandardScaler
+  Loss function and value on validation set: silhouette_score = 0.8043, error = 0.0623 ((mximum value of the categories - the number of electrons by using xgboost for classification)/the number of electrons by using xgboost for classification)
+  Own evaluation: The shap variables give high-correlated variables to distinguish electrons and non-electorns. And less features also reduce the complexity for the clustering.
+
+8: Clustering_HauLamFong_kmean_wcss.csv:
+  Algorithm: Sklearn KMeans
+  Key HPs: n_clusters
+  feature_ranking: wcss
+  HP optimisation: Tested various values of n_clusters.
+  Pre-processing: Scaled the input features using StandardScaler
+  Loss function and value on validation set: silhouette_score = 0.6072, error = 0.1218 ((mximum value of the categories - the number of electrons by using xgboost for classification)/the number of electrons by using xgboost for classification)
+  Own evaluation: According to the xgboost classification, the number of electorns is 119811 which is much larger than the number of non-elctron particles. So I think the maximum count category for the clustering is electrons, and use the error 
+  equation to evaluate the accuracy. Also, I use silhouetter score to evaluate the quality of the clustering. Using wcss(calculate the average distance from center to datapoints) method to gain the feature_importance gives worse silhouette score
+  since there are too many variables(hard to clustering) and the kmean method is linear method, then it gives larger error and smaller silhouette score. Calculating silhouette score takes a lot of times.
+
+
+9: Clustering_HauLamFong_kmean_wcss.csv:
+Algorithm: Sklearn KMeans
+Key HPs: n_clusters
+feature_ranking: wcss
+HP optimisation: Tested various values of n_clusters.
+Pre-processing: Scaled the input features using StandardScaler
+Loss function and value on validation set: silhouette_score = 0.7705, error = 0.1769
+Own evaluation: Performance is not that good, but it performs better than shap values since the Gaussian mixture is probability method(the wcss and Gaussian mixture are based on k-means). Calculating silhouette score takes a lot of times.
+

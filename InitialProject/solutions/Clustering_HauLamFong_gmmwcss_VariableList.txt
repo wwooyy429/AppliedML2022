@@ -1,0 +1,9 @@
+,vars
+0,p_deltaPhi0
+1,p_deltaEta0
+2,p_deltaPhiRescaled0
+3,p_nCells_Lr0_HiG
+4,p_E_Lr0_HiG
+5,p_eClusterLr0
+6,p_E3x5_Lr0
+7,p_E7x11_Lr0

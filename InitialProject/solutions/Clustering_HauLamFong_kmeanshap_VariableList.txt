@@ -1,0 +1,9 @@
+,vars
+0,p_Rhad
+1,p_Reta
+2,p_deltaEta1
+3,p_sigmad0
+4,p_Rphi
+5,p_ambiguityType
+6,p_ethad
+7,p_numberOfInnermostPixelHits

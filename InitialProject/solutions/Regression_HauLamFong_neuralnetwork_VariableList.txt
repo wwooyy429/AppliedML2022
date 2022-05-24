@@ -1,0 +1,13 @@
+,vars
+0,p_eCluster
+1,p_rawECluster
+2,p_eAccCluster
+3,p_ecore
+4,p_E7x11_Lr2
+5,p_E7x7_Lr2
+6,p_e277
+7,p_eClusterLr2
+8,p_E5x7_Lr2
+9,p_e255
+10,p_e237
+11,p_e235
